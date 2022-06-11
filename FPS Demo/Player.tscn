@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Player.gd" type="Script" id=1]
 
@@ -10,35 +10,34 @@ height = 0.8
 radius = 0.3
 mid_height = 0.8
 
-[sub_resource type="CubeMesh" id=3]
-size = Vector3( 0.143, 0.141, 0.85 )
+[sub_resource type="SpatialMaterial" id=3]
+albedo_color = Color( 0.87451, 0.156863, 0.156863, 1 )
 
-[sub_resource type="SpatialMaterial" id=4]
-albedo_color = Color( 0.121569, 0.458824, 0.788235, 1 )
-metallic = 0.36
-metallic_specular = 0.75
+[sub_resource type="CubeMesh" id=4]
 
-[sub_resource type="Animation" id=5]
+[sub_resource type="SpatialMaterial" id=5]
+albedo_color = Color( 0.941176, 0.113725, 0.113725, 1 )
+
+[sub_resource type="Animation" id=6]
 resource_name = "AR"
-length = 0.3
-loop = true
+length = 0.08
 tracks/0/type = "value"
-tracks/0/path = NodePath("LookPivot/Camera/hand/MeshInstance:translation")
+tracks/0/path = NodePath("LookPivot/Camera/Hand/MeshInstance:translation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.2, 0.4 ),
+"times": PoolRealArray( 0, 0.025, 0.075 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
-"values": [ Vector3( -0.00661659, 0, -0.00335026 ), Vector3( -0.007, 0.018, 0.119 ), Vector3( -0.007, 0, 0 ) ]
+"values": [ Vector3( 0.516, -0.304, -0.635 ), Vector3( 0.516, -0.304, -0.413 ), Vector3( 0.516, -0.304, -0.842 ) ]
 }
 
-[sub_resource type="Animation" id=6]
+[sub_resource type="Animation" id=7]
 length = 0.001
 tracks/0/type = "value"
-tracks/0/path = NodePath("LookPivot/Camera/hand/MeshInstance:translation")
+tracks/0/path = NodePath("LookPivot/Camera/Hand/MeshInstance:translation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -47,7 +46,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Vector3( -0.00661659, 0, -0.00335026 ) ]
+"values": [ Vector3( 0.516, -0.304, -0.635 ) ]
 }
 
 [node name="Player" type="KinematicBody"]
@@ -61,26 +60,24 @@ shape = SubResource( 1 )
 [node name="MeshInstance" type="MeshInstance" parent="CollisionShape"]
 mesh = SubResource( 2 )
 skeleton = NodePath("../..")
-material/0 = null
+material/0 = SubResource( 3 )
 
 [node name="LookPivot" type="Spatial" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.43066, 0 )
 
 [node name="Camera" type="Camera" parent="LookPivot"]
-transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0 )
+transform = Transform( -1, 0, -1.50996e-07, 0, 1, 0, 1.50996e-07, 0, -1, 0, 0, 0 )
 
 [node name="RayCast" type="RayCast" parent="LookPivot/Camera"]
 enabled = true
 cast_to = Vector3( 0, 0, -200 )
 
-[node name="hand" type="Spatial" parent="LookPivot/Camera"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.274, -0.268, -0.613 )
+[node name="Hand" type="Spatial" parent="LookPivot/Camera"]
 
-[node name="MeshInstance" type="MeshInstance" parent="LookPivot/Camera/hand"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00661659, 0, -0.00335026 )
-mesh = SubResource( 3 )
-material/0 = SubResource( 4 )
+[node name="MeshInstance" type="MeshInstance" parent="LookPivot/Camera/Hand"]
+transform = Transform( 0.081, 0, 0, 0, 0.088, 0, 0, 0, 0.503, 0.516, -0.304, -0.635 )
+mesh = SubResource( 4 )
+material/0 = SubResource( 5 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/AR = SubResource( 5 )
-anims/RESET = SubResource( 6 )
+anims/AR = SubResource( 6 )
+anims/RESET = SubResource( 7 )
