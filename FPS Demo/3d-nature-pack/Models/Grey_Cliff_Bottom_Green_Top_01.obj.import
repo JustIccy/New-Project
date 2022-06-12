@@ -1,0 +1,20 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/Grey_Cliff_Bottom_Green_Top_01.obj-5381d9f27f6d00b1b091f1aa56c3567c.mesh"
+
+[deps]
+
+files=[ "res://.import/Grey_Cliff_Bottom_Green_Top_01.obj-5381d9f27f6d00b1b091f1aa56c3567c.mesh" ]
+
+source_file="res://3d-nature-pack/Models/Grey_Cliff_Bottom_Green_Top_01.obj"
+dest_files=[ "res://.import/Grey_Cliff_Bottom_Green_Top_01.obj-5381d9f27f6d00b1b091f1aa56c3567c.mesh", "res://.import/Grey_Cliff_Bottom_Green_Top_01.obj-5381d9f27f6d00b1b091f1aa56c3567c.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+octahedral_compression=true
+optimize_mesh_flags=4286

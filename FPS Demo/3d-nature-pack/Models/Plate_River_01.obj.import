@@ -1,0 +1,20 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/Plate_River_01.obj-305243a2d7a4be07cdb723530f974abe.mesh"
+
+[deps]
+
+files=[ "res://.import/Plate_River_01.obj-305243a2d7a4be07cdb723530f974abe.mesh" ]
+
+source_file="res://3d-nature-pack/Models/Plate_River_01.obj"
+dest_files=[ "res://.import/Plate_River_01.obj-305243a2d7a4be07cdb723530f974abe.mesh", "res://.import/Plate_River_01.obj-305243a2d7a4be07cdb723530f974abe.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+octahedral_compression=true
+optimize_mesh_flags=4286

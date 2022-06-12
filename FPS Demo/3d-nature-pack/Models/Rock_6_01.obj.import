@@ -1,0 +1,20 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/Rock_6_01.obj-769aea234b74d8369df7ed8042bb877a.mesh"
+
+[deps]
+
+files=[ "res://.import/Rock_6_01.obj-769aea234b74d8369df7ed8042bb877a.mesh" ]
+
+source_file="res://3d-nature-pack/Models/Rock_6_01.obj"
+dest_files=[ "res://.import/Rock_6_01.obj-769aea234b74d8369df7ed8042bb877a.mesh", "res://.import/Rock_6_01.obj-769aea234b74d8369df7ed8042bb877a.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+octahedral_compression=true
+optimize_mesh_flags=4286
