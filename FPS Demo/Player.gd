@@ -25,13 +25,16 @@ func _input(event):
 		rotate_y(deg2rad(-1*event.relative.x) * MOUSE_SENSITIVITY)
 		look_pivot.rotate_x(deg2rad(event.relative.y)*MOUSE_SENSITIVITY)
 		look_pivot.rotation.x = clamp(look_pivot.rotation.x,deg2rad(-90),deg2rad(90))
+		
 
+
+	
 func fire():
 	if Input.is_action_pressed("fire"):
 		if not anim_player.is_playing():
 			camera.translation = lerp(camera.translation, 
 				Vector3(rand_range(MAX_CAM_SHAKE, -MAX_CAM_SHAKE), 
-				rand_range(MAX_CAM_SHAKE, -MAX_CAM_SHAKE), 0), 0.5)
+				rand_range(MAX_CAM_SHAKE, -MAX_CAM_SHAKE), 0), 0.1)
 			print("fired a shot")
 			if raycast.is_colliding():
 				var target = raycast.get_collider()
