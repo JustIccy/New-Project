@@ -19,6 +19,8 @@ var gravity_vec = Vector3()
 
 onready var head = $Head
 onready var ground_check = $GroundCheck
+onready var anim_play = $Head/Camera/AnimationPlayer
+
 
 #on game start keep mouse within window bounds
 func _ready():
@@ -69,6 +71,10 @@ func _physics_process(delta):
 	movement.x = h_velocity.x + gravity_vec.x
 	
 	move_and_slide(movement, Vector3.UP)
+	
+	#Plays headbobbing animation
+	if direction != Vector3():
+		anim_play.play("Headbob")
 		
 		
 		
