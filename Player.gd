@@ -1,16 +1,17 @@
 extends KinematicBody
 
 #Delcare Variables
-const SWAY = 40
-const VSWAY = 50
+const SWAY = 50
+const VSWAY =30
 
 var speed = 10
 var h_acceleration = 3
 var air_acceleration = 1
 var normal_acceleration = 6
 var gravity = 20
-var jump = 10
+var jump = 15
 var full_contact = false
+var damage = 10
 
 var mouse_sensitivity = 0.03
 
@@ -21,9 +22,11 @@ var gravity_vec = Vector3()
 
 onready var head = $Head
 onready var ground_check = $GroundCheck
-onready var anim_play = $Head/Camera/AnimationPlayer
+#onready var anim_play = $Head/Camera/AnimationPlayer
 onready var hand = $Head/Hand
 onready var handlock = $Head/HandLock
+onready var aimcast = $Head/Camera/RayCast
+onready var muzzle = $Head/Hand/Magnum/Muzzle
 
 
 #on game start keep mouse within window bounds
@@ -48,6 +51,19 @@ func _physics_process(delta):
 	
 	direction = Vector3()
 	
+	#firing weapon
+	if Input.is_action_just_pressed("fire"):
+		print("fired gun")
+		if aimcast.is_colliding():
+			var bullet = get_world().direct_space_state	
+			var collision = bullet.interact_ray(muzzle.transform.origin, aimcast.get_collision_point())
+			
+			if collision:
+				var target = collision.collider
+				if target.is_in_group("Enemy"):
+					print("hit target")
+					target.health -= damage
+	
 	#Calculate to check if player is either on the ground or jumping, as well as calculating for slopes and acceleration
 	if ground_check.is_colliding():
 		full_contact = true
@@ -57,7 +73,7 @@ func _physics_process(delta):
 	if not is_on_floor():
 		gravity_vec += Vector3.DOWN * gravity * delta
 		h_acceleration = air_acceleration
-		anim_play.stop()
+		#anim_play.stop()
 	elif is_on_floor() and full_contact:
 		gravity_vec = -get_floor_normal() * gravity
 		h_acceleration = normal_acceleration
@@ -87,8 +103,8 @@ func _physics_process(delta):
 	move_and_slide(movement, Vector3.UP)
 	
 	#Plays headbobbing animation
-	if direction != Vector3():
-		anim_play.play("Headbob")
+	#if direction != Vector3():
+	#	anim_play.play("Headbob")
 		
 		
 		

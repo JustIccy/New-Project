@@ -1,0 +1,11 @@
+Model Information:
+* title:	Magnum- Halo Combat Evolved
+* source:	https://sketchfab.com/3d-models/magnum-halo-combat-evolved-84872b96a7354216b152f34ac453c707
+* author:	mamako9126 (https://sketchfab.com/mamako9126)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Magnum- Halo Combat Evolved" (https://sketchfab.com/3d-models/magnum-halo-combat-evolved-84872b96a7354216b152f34ac453c707) by mamako9126 (https://sketchfab.com/mamako9126) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
