@@ -2,7 +2,7 @@ extends KinematicBody
 
 #Delcare Variables
 var speed = 10
-var h_acceleration = 6
+var h_acceleration = 3
 var air_acceleration = 1
 var normal_acceleration = 6
 var gravity = 20
@@ -45,6 +45,8 @@ func _physics_process(delta):
 	if not is_on_floor():
 		gravity_vec += Vector3.DOWN * gravity * delta
 		h_acceleration = air_acceleration
+		anim_play.stop()
+		
 	elif is_on_floor() and full_contact:
 		gravity_vec = -get_floor_normal() * gravity
 		h_acceleration = normal_acceleration
@@ -69,6 +71,7 @@ func _physics_process(delta):
 	h_velocity = h_velocity.linear_interpolate(direction * speed, h_acceleration * delta)
 	movement.z = h_velocity.z + gravity_vec.z
 	movement.x = h_velocity.x + gravity_vec.x
+	movement.y = gravity_vec.y
 	
 	move_and_slide(movement, Vector3.UP)
 	
