@@ -25,8 +25,8 @@ onready var ground_check = $GroundCheck
 #onready var anim_play = $Head/Camera/AnimationPlayer
 onready var hand = $Head/Hand
 onready var handlock = $Head/HandLock
-onready var aimcast = $Head/Camera/RayCast
-onready var muzzle = $Head/Hand/Magnum/Muzzle
+onready var aimcast = $Head/Camera/Aimcast
+
 
 
 #on game start keep mouse within window bounds
@@ -42,6 +42,15 @@ func _input(event):
 		head.rotation.x = clamp(head.rotation.x, deg2rad(-89), deg2rad(89))
 
 func _process(delta):
+	#firing weapon
+	if Input.is_action_just_pressed("fire"):
+		print("fired gun")
+		if aimcast.is_colliding():
+			var target = aimcast.get_collider()
+			if target.is_in_group("Enemy"):
+				print("hit enemy")
+				target.health -= damage
+			
 	hand.global_transform.origin = handlock.global_transform.origin
 	hand.rotation.y = lerp_angle(hand.rotation.y, rotation.y, SWAY * delta)
 	hand.rotation.x = lerp_angle(hand.rotation.x, head.rotation.x, VSWAY * delta)
@@ -51,19 +60,9 @@ func _physics_process(delta):
 	
 	direction = Vector3()
 	
-	#firing weapon
-	if Input.is_action_just_pressed("fire"):
-		print("fired gun")
-		if aimcast.is_colliding():
-			var bullet = get_world().direct_space_state	
-			var collision = bullet.interact_ray(muzzle.transform.origin, aimcast.get_collision_point())
-			
-			if collision:
-				var target = collision.collider
-				if target.is_in_group("Enemy"):
-					print("hit target")
-					target.health -= damage
 	
+	
+		
 	#Calculate to check if player is either on the ground or jumping, as well as calculating for slopes and acceleration
 	if ground_check.is_colliding():
 		full_contact = true
