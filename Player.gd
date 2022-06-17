@@ -1,8 +1,8 @@
 extends KinematicBody
 
 #Delcare Variables
-const SWAY = 50
-const VSWAY =30
+const SWAY = 40
+const VSWAY =40
 
 var speed = 10
 var h_acceleration = 3
@@ -11,7 +11,9 @@ var normal_acceleration = 6
 var gravity = 20
 var jump = 15
 var full_contact = false
-var damage = 10
+var wDamage
+var weapon = [0]
+
 
 var mouse_sensitivity = 0.03
 
@@ -20,17 +22,23 @@ var h_velocity = Vector3()
 var movement = Vector3()
 var gravity_vec = Vector3()
 
+
 onready var head = $Head
 onready var ground_check = $GroundCheck
+onready var reach = $Head/Camera/Reach
 #onready var anim_play = $Head/Camera/AnimationPlayer
 onready var hand = $Head/Hand
 onready var handlock = $Head/HandLock
 onready var aimcast = $Head/Camera/Aimcast
+onready var MG = $Head/Hand/Magnum
+onready var BR = $Head/Hand/BR
+onready var blank = $Head/Hand/Blank
 
 
 
 #on game start keep mouse within window bounds
 func _ready():
+	
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED) 
 	hand.set_as_toplevel(true)
 	
@@ -41,15 +49,44 @@ func _input(event):
 		head.rotate_x(deg2rad(-event.relative.y * mouse_sensitivity))
 		head.rotation.x = clamp(head.rotation.x, deg2rad(-89), deg2rad(89))
 
+func weapon_select():
+	
+	if Input.is_action_just_pressed("No weapons"):
+		weapon[0] = 0;
+	elif Input.is_action_just_pressed("weapon1"):	
+		weapon[0] = 1
+	elif Input.is_action_just_pressed("weapon2"):
+		weapon[0] = 2;
+	
+	if weapon[0] == 0:
+		blank.visible = true
+	else:
+		blank.visible = false
+	if weapon[0] == 1:
+		MG.visible = true
+	else:
+		MG.visible = false
+	if weapon[0] == 2:
+		BR.visible = true
+	else:
+		BR.visible = false
+		
+	
+		
+		
 func _process(delta):
 	#firing weapon
-	if Input.is_action_just_pressed("fire"):
-		print("fired gun")
-		if aimcast.is_colliding():
-			var target = aimcast.get_collider()
-			if target.is_in_group("Enemy"):
-				print("hit enemy")
-				target.health -= damage
+	if Input.is_action_just_pressed("fire") && aimcast.is_colliding():
+		var target = aimcast.get_collider()
+		if target.is_in_group("Enemy"):
+			match weapon[0]:
+				0:
+					target.health -= 0
+				1: 
+					target.health -= MG.damage
+				2: 
+					target.health -= BR.damage
+				
 			
 	hand.global_transform.origin = handlock.global_transform.origin
 	hand.rotation.y = lerp_angle(hand.rotation.y, rotation.y, SWAY * delta)
@@ -60,9 +97,8 @@ func _physics_process(delta):
 	
 	direction = Vector3()
 	
+	weapon_select()
 	
-	
-		
 	#Calculate to check if player is either on the ground or jumping, as well as calculating for slopes and acceleration
 	if ground_check.is_colliding():
 		full_contact = true

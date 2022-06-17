@@ -1,4 +1,4 @@
-[gd_scene load_steps=54 format=2]
+[gd_scene load_steps=58 format=2]
 
 [ext_resource path="res://magnum-_halo_combat_evolved/textures/Material.005_baseColor.png" type="Texture" id=1]
 [ext_resource path="res://magnum-_halo_combat_evolved/textures/Material.004_normal.png" type="Texture" id=2]
@@ -27,7 +27,10 @@
 [ext_resource path="res://magnum-_halo_combat_evolved/textures/Material.003_normal.png" type="Texture" id=25]
 [ext_resource path="res://magnum-_halo_combat_evolved/textures/Material.003_baseColor.png" type="Texture" id=26]
 [ext_resource path="res://magnum-_halo_combat_evolved/textures/Material.008_normal.png" type="Texture" id=27]
+[ext_resource path="res://magnum-_halo_combat_evolved/Material_005.material" type="Material" id=28]
 [ext_resource path="res://magnum-_halo_combat_evolved/textures/Material.001_baseColor.png" type="Texture" id=29]
+[ext_resource path="res://magnum-_halo_combat_evolved/Material_006.material" type="Material" id=30]
+[ext_resource path="res://Magnum.gd" type="Script" id=31]
 
 [sub_resource type="SpatialMaterial" id=28]
 resource_name = "Material.001"
@@ -60,10 +63,6 @@ surfaces/0 = {
 "vertex_count": 1589
 }
 
-[sub_resource type="SpatialMaterial" id=40]
-albedo_color = Color( 1, 0.160784, 0, 1 )
-metallic = 0.62
-
 [sub_resource type="SpatialMaterial" id=30]
 resource_name = "Material.002"
 vertex_color_use_as_albedo = true
@@ -94,6 +93,10 @@ surfaces/0 = {
 "skeleton_aabb": [  ],
 "vertex_count": 1972
 }
+
+[sub_resource type="SpatialMaterial" id=44]
+albedo_color = Color( 0.121569, 0.113725, 0.113725, 1 )
+albedo_texture = ExtResource( 19 )
 
 [sub_resource type="SpatialMaterial" id=5]
 resource_name = "Material.003"
@@ -162,10 +165,6 @@ surfaces/0 = {
 "skeleton_aabb": [  ],
 "vertex_count": 1530
 }
-
-[sub_resource type="SpatialMaterial" id=41]
-albedo_color = Color( 0.352941, 0.0588235, 0.0352941, 1 )
-metallic = 0.66
 
 [sub_resource type="SpatialMaterial" id=9]
 resource_name = "Material.009"
@@ -307,6 +306,12 @@ surfaces/0 = {
 "vertex_count": 248
 }
 
+[sub_resource type="SpatialMaterial" id=45]
+albedo_color = Color( 0.290196, 0.278431, 0.278431, 1 )
+albedo_texture = ExtResource( 5 )
+metallic = 0.72
+metallic_texture = ExtResource( 5 )
+
 [sub_resource type="SpatialMaterial" id=17]
 resource_name = "Material.012"
 vertex_color_use_as_albedo = true
@@ -363,6 +368,12 @@ surfaces/0 = {
 "vertex_count": 192
 }
 
+[sub_resource type="SpatialMaterial" id=46]
+albedo_color = Color( 0.25098, 0.231373, 0.231373, 1 )
+normal_enabled = true
+normal_scale = 1.0
+normal_texture = ExtResource( 29 )
+
 [sub_resource type="SpatialMaterial" id=27]
 resource_name = "Material.011"
 vertex_color_use_as_albedo = true
@@ -399,28 +410,30 @@ surfaces/0 = {
 
 [node name="Magnum" type="MeshInstance"]
 transform = Transform( -0.2, 0, -1.74846e-08, 0, 0.2, 0, 1.74846e-08, 0, -0.2, 0, 0, 0 )
+visible = false
+script = ExtResource( 31 )
 
 [node name="Cube_0" type="Spatial" parent="."]
 transform = Transform( 0.416468, 0, 0.00591329, 0, 0.41651, 0, -0.00591329, 0, 0.416468, -0.000422686, -0.000104904, -0.000375509 )
 
 [node name="Object_4" type="MeshInstance" parent="Cube_0"]
 mesh = SubResource( 29 )
-material/0 = SubResource( 40 )
+material/0 = ExtResource( 30 )
 
 [node name="Object_5" type="MeshInstance" parent="Cube_0"]
 mesh = SubResource( 31 )
-material/0 = null
+material/0 = SubResource( 44 )
 
 [node name="Object_6" type="MeshInstance" parent="Cube_0"]
 mesh = SubResource( 43 )
-material/0 = null
+material/0 = ExtResource( 28 )
 
 [node name="Cube001_1" type="Spatial" parent="."]
 transform = Transform( 0.308751, -0.000115289, 0.00438233, 2.63292e-12, 0.308675, 0.00812049, -0.00438385, -0.00811967, 0.308644, -0.0092763, 2.88928, -0.623927 )
 
 [node name="Object_8" type="MeshInstance" parent="Cube001_1"]
 mesh = SubResource( 32 )
-material/0 = SubResource( 41 )
+material/0 = null
 
 [node name="Object_9" type="MeshInstance" parent="Cube001_1"]
 mesh = SubResource( 33 )
@@ -442,7 +455,7 @@ transform = Transform( 4.60986e-09, 0.00221178, -0.155775, -0.155791, -4.60986e-
 
 [node name="Object_14" type="MeshInstance" parent="Cylinder_3"]
 mesh = SubResource( 36 )
-material/0 = null
+material/0 = SubResource( 45 )
 
 [node name="Object_15" type="MeshInstance" parent="Cylinder_3"]
 mesh = SubResource( 37 )
@@ -458,7 +471,7 @@ transform = Transform( 1, -4.75081e-17, -5.14189e-18, 4.75081e-17, 0.976843, 0.2
 
 [node name="Object_27" type="MeshInstance" parent="Armature_12/Bone_11/Cube002_10"]
 mesh = SubResource( 38 )
-material/0 = null
+material/0 = SubResource( 46 )
 
 [node name="Armature001_15" type="Spatial" parent="."]
 transform = Transform( 0.147282, 0, 0, 0, -0.147177, 0.00557366, 0, -0.00557366, -0.147177, -0.000999987, 2.1815, 0.961331 )
@@ -470,4 +483,4 @@ transform = Transform( 6.78968, 5.7035e-17, -3.01415e-15, -5.7073e-17, -6.78482,
 
 [node name="Object_31" type="MeshInstance" parent="Armature001_15/Bone_14/Cube004_13"]
 mesh = SubResource( 39 )
-material/0 = null
+material/0 = ExtResource( 30 )

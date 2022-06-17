@@ -1,8 +1,6 @@
 extends MeshInstance
 
-
-onready var BulletPoint = $BulletPoint
-
+var damage = 25
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

@@ -1,8 +1,10 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Player.gd" type="Script" id=1]
 [ext_resource path="res://Pistol Reticle.png" type="Texture" id=2]
 [ext_resource path="res://Magnum.tscn" type="PackedScene" id=3]
+[ext_resource path="res://BattleRifle.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Blank.tscn" type="PackedScene" id=5]
 
 [sub_resource type="CapsuleMesh" id=3]
 mid_height = 3.0
@@ -51,14 +53,22 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.1 )
 enabled = true
 cast_to = Vector3( 0, 0, -100 )
 
-[node name="Hand" type="Spatial" parent="Head"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.4, -0.501, 0.171 )
-
-[node name="Magnum" parent="Head/Hand" instance=ExtResource( 3 )]
-transform = Transform( -0.2, 0, -1.74846e-08, 0, 0.2, 0, 1.74846e-08, 0, -0.2, 0, 0, -1.91551 )
+[node name="Reach" type="RayCast" parent="Head/Camera"]
+enabled = true
+cast_to = Vector3( 0, -1, -5 )
 
 [node name="HandLock" type="Spatial" parent="Head"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.4, -0.501, 0.171 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.257, -0.478, -1.82 )
+
+[node name="Hand" type="Spatial" parent="Head"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.257, -0.478, -1.82 )
+
+[node name="Blank" parent="Head/Hand" instance=ExtResource( 5 )]
+
+[node name="Magnum" parent="Head/Hand" instance=ExtResource( 3 )]
+
+[node name="BR" parent="Head/Hand" instance=ExtResource( 4 )]
+transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -0.187, 0.68, 0.622 )
 
 [node name="GroundCheck" type="RayCast" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, 0 )
