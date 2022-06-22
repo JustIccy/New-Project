@@ -1,10 +1,11 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://battle_rifle_-_halo/scene.gltf" type="PackedScene" id=1]
 [ext_resource path="res://battle_rifle_-_halo/textures/DefaultMaterial_metallicRoughness.png" type="Texture" id=2]
 [ext_resource path="res://battle_rifle_-_halo/textures/DefaultMaterial_normal.png" type="Texture" id=3]
 [ext_resource path="res://battle_rifle_-_halo/textures/DefaultMaterial_baseColor.jpeg" type="Texture" id=4]
 [ext_resource path="res://BattleRifle.gd" type="Script" id=5]
+[ext_resource path="res://Agenda 5 Burst.wav" type="AudioStream" id=6]
 
 [sub_resource type="SpatialMaterial" id=1]
 albedo_texture = ExtResource( 4 )
@@ -13,10 +14,51 @@ metallic_specular = 0.46
 metallic_texture = ExtResource( 2 )
 roughness_texture = ExtResource( 3 )
 
+[sub_resource type="Animation" id=2]
+resource_name = "BR_anim"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:translation")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4 ),
+"transitions": PoolRealArray( 2, 1.7411, 2.46229, 2.92817, 1.93187 ),
+"update": 0,
+"values": [ Vector3( -0.207, 0.671, 0.744 ), Vector3( -0.207, 0.671, 0.755 ), Vector3( -0.207, 0.671, 0.744 ), Vector3( -0.207, 0.671, 0.755 ), Vector3( -0.207, 0.671, 0.744 ) ]
+}
+
+[sub_resource type="Animation" id=3]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:translation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( -0.207, 0.671, 0.744 ) ]
+}
+
 [node name="BR" instance=ExtResource( 1 )]
-transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0 )
-visible = false
+transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -0.207, 0.671, 0.744 )
 script = ExtResource( 5 )
 
 [node name="defaultMaterial" parent="Sketchfab_model/Collada visual scene group/a_low001" index="0"]
 material/0 = SubResource( 1 )
+
+[node name="BR_Anim" type="AnimationPlayer" parent="." index="1"]
+anims/BR_anim = SubResource( 2 )
+anims/RESET = SubResource( 3 )
+
+[node name="BR_Sound" type="AudioStreamPlayer3D" parent="." index="2"]
+stream = ExtResource( 6 )
+
+[node name="ROF" type="Timer" parent="." index="3"]
+wait_time = 0.4
+one_shot = true

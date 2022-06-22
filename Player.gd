@@ -11,9 +11,7 @@ var normal_acceleration = 6
 var gravity = 20
 var jump = 15
 var full_contact = false
-var wDamage
 var weapon = [0]
-
 
 var mouse_sensitivity = 0.03
 
@@ -26,21 +24,21 @@ var gravity_vec = Vector3()
 onready var head = $Head
 onready var ground_check = $GroundCheck
 onready var reach = $Head/Camera/Reach
-#onready var anim_play = $Head/Camera/AnimationPlayer
 onready var hand = $Head/Hand
 onready var handlock = $Head/HandLock
 onready var aimcast = $Head/Camera/Aimcast
 onready var MG = $Head/Hand/Magnum
 onready var BR = $Head/Hand/BR
 onready var blank = $Head/Hand/Blank
+onready var Cam = $Head/Camera
 
 
 
 #on game start keep mouse within window bounds
 func _ready():
-	
-	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED) 
 	hand.set_as_toplevel(true)
+	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED) 
+	
 	
 #capture mouse movement and clamps the head to specific bounds on the x axis
 func _input(event):
@@ -51,6 +49,7 @@ func _input(event):
 
 func weapon_select():
 	
+	#if the player chooses a gun, we set the initial array value to the value of the gun 
 	if Input.is_action_just_pressed("No weapons"):
 		weapon[0] = 0;
 	elif Input.is_action_just_pressed("weapon1"):	
@@ -58,34 +57,55 @@ func weapon_select():
 	elif Input.is_action_just_pressed("weapon2"):
 		weapon[0] = 2;
 	
+	#if we choose the gun, then it will appear. If otherwise, it won't
 	if weapon[0] == 0:
 		blank.visible = true
 	else:
 		blank.visible = false
 	if weapon[0] == 1:
+		MG.is_equipped = true
 		MG.visible = true
 	else:
+		MG.is_equipped = false
 		MG.visible = false
 	if weapon[0] == 2:
+		BR.is_equipped = true
 		BR.visible = true
 	else:
+		BR.is_equipped = false
 		BR.visible = false
 		
 	
 		
 		
 func _process(delta):
+	#prevent fps gun clipping
+	
 	#firing weapon
-	if Input.is_action_just_pressed("fire") && aimcast.is_colliding():
-		var target = aimcast.get_collider()
-		if target.is_in_group("Enemy"):
-			match weapon[0]:
-				0:
-					target.health -= 0
-				1: 
-					target.health -= MG.damage
-				2: 
-					target.health -= BR.damage
+	#When the gun is fired, and it collides with a target...
+	if Input.is_action_just_pressed("fire"): 
+		if aimcast.is_colliding():
+			#it will say that it will hit the target...
+			print("hit target")
+			"""
+			and when var target gets the collider from the object, it checks to 
+			see if it's in the group enemy and them deals the appropriate amount of damage.
+			
+			The issue here is that it doesn't do that. Before it did however. I'm not sure if it's my code, or something I did when I 
+			was working on the animations for the Battle Rifle since it broke soon after I finished it.
+			"""
+			var target = aimcast.get_collider()
+			if target.is_in_group("Enemy"):
+				match weapon[0]:
+					0:
+						target.health -= 0
+					1: 
+						if MG.ROF.is_stopped():
+							print("we did damage")
+							target.health -= MG.damage
+					2: 
+						if BR.ROF.is_stopped():
+							target.health -= BR.damage
 				
 			
 	hand.global_transform.origin = handlock.global_transform.origin
@@ -108,7 +128,6 @@ func _physics_process(delta):
 	if not is_on_floor():
 		gravity_vec += Vector3.DOWN * gravity * delta
 		h_acceleration = air_acceleration
-		#anim_play.stop()
 	elif is_on_floor() and full_contact:
 		gravity_vec = -get_floor_normal() * gravity
 		h_acceleration = normal_acceleration
@@ -138,8 +157,7 @@ func _physics_process(delta):
 	move_and_slide(movement, Vector3.UP)
 	
 	#Plays headbobbing animation
-	#if direction != Vector3():
-	#	anim_play.play("Headbob")
+
 		
 		
 		
