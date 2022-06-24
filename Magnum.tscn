@@ -1,4 +1,4 @@
-[gd_scene load_steps=58 format=2]
+[gd_scene load_steps=60 format=2]
 
 [ext_resource path="res://magnum-_halo_combat_evolved/textures/Material.005_baseColor.png" type="Texture" id=1]
 [ext_resource path="res://magnum-_halo_combat_evolved/textures/Material.004_normal.png" type="Texture" id=2]
@@ -408,9 +408,51 @@ surfaces/0 = {
 "vertex_count": 160
 }
 
+[sub_resource type="Animation" id=47]
+resource_name = "MG_Anim"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, -180, 0 ), Vector3( -5, -180, 0 ), Vector3( -15, -180, 0 ), Vector3( 0, -180, 0 ) ]
+}
+
+[sub_resource type="Animation" id=48]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:translation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( 0, -180, 0 ) ]
+}
+
 [node name="Magnum" type="MeshInstance"]
-transform = Transform( -0.2, 0, -1.74846e-08, 0, 0.2, 0, 1.74846e-08, 0, -0.2, 0, 0, 0 )
-visible = false
+transform = Transform( -0.2, 0, -3.01992e-08, 0, 0.2, 0, 3.01992e-08, 0, -0.2, 0, 0, 0 )
 script = ExtResource( 31 )
 
 [node name="Cube_0" type="Spatial" parent="."]
@@ -484,3 +526,11 @@ transform = Transform( 6.78968, 5.7035e-17, -3.01415e-15, -5.7073e-17, -6.78482,
 [node name="Object_31" type="MeshInstance" parent="Armature001_15/Bone_14/Cube004_13"]
 mesh = SubResource( 39 )
 material/0 = ExtResource( 30 )
+
+[node name="ROF" type="Timer" parent="."]
+wait_time = 0.3
+one_shot = true
+
+[node name="MG_Anim" type="AnimationPlayer" parent="."]
+anims/MG_Anim = SubResource( 47 )
+anims/RESET = SubResource( 48 )

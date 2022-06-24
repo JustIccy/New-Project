@@ -122,6 +122,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 31.345, 6.903, -10 )
 [node name="CSGCombiner" type="CSGCombiner" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00374985, 0.0348806, -36.167 )
 material_override = SubResource( 12 )
+use_collision = true
 
 [node name="CSGBox" type="CSGBox" parent="CSGCombiner"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -43.6352 )

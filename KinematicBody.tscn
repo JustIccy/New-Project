@@ -68,7 +68,8 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.257, -0.478, -1.82 )
 [node name="Magnum" parent="Head/Hand" instance=ExtResource( 3 )]
 
 [node name="BR" parent="Head/Hand" instance=ExtResource( 4 )]
-transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -0.187, 0.68, 0.622 )
+transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -0.203, 0.689, 0.756 )
+visible = true
 
 [node name="GroundCheck" type="RayCast" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, 0 )

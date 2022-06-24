@@ -4,8 +4,8 @@ extends KinematicBody
 const SWAY = 40
 const VSWAY =40
 
-var speed = 10
-var h_acceleration = 3
+var speed = 15
+var h_acceleration = 5
 var air_acceleration = 1
 var normal_acceleration = 6
 var gravity = 20
@@ -63,8 +63,10 @@ func weapon_select():
 	else:
 		blank.visible = false
 	if weapon[0] == 1:
+		MG.is_equipped = true
 		MG.visible = true
 	else:
+		MG.is_equipped = false
 		MG.visible = false
 	if weapon[0] == 2:
 		BR.visible = true
@@ -83,7 +85,8 @@ func _process(delta):
 				0:
 					target.health -= 0
 				1: 
-					target.health -= MG.damage
+					if MG.ROF.is_stopped():
+						target.health -= MG.damage
 				2: 
 					target.health -= BR.damage
 				
