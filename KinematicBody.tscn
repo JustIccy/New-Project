@@ -47,8 +47,8 @@ current = true
 far = 1000.0
 
 [node name="TextureRect" type="TextureRect" parent="Head/Camera"]
-margin_left = 940.0
-margin_top = 520.0
+margin_left = 300.0
+margin_top = 220.0
 margin_right = 50.0
 margin_bottom = 50.0
 texture = ExtResource( 2 )
@@ -78,9 +78,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 
 [node name="Viewport" type="Viewport" parent="Head/Camera/ViewportContainer"]
-size = Vector2( 1920, 1080 )
+size = Vector2( 640, 480 )
 transparent_bg = true
-handle_input_locally = false
 render_target_update_mode = 3
 
 [node name="GunCam" type="Camera" parent="Head/Camera/ViewportContainer/Viewport"]
