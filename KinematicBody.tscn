@@ -3,7 +3,6 @@
 [ext_resource path="res://Player.gd" type="Script" id=1]
 [ext_resource path="res://Pistol Reticle.png" type="Texture" id=2]
 [ext_resource path="res://Magnum.tscn" type="PackedScene" id=3]
-[ext_resource path="res://BattleRifle.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Blank.tscn" type="PackedScene" id=5]
 
 [sub_resource type="CapsuleMesh" id=3]
@@ -17,6 +16,9 @@ height = 3.0
 
 [sub_resource type="CylinderShape" id=2]
 height = 0.841407
+
+[sub_resource type="CubeMesh" id=7]
+size = Vector3( 0.354, 0.397, 1.408 )
 
 [node name="Player" type="KinematicBody"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0 )
@@ -40,6 +42,9 @@ transform = Transform( 1, 5.82077e-11, 0, 0, 1, 0, 0, 0, 1, 0, 0.976135, 0 )
 
 [node name="Camera" type="Camera" parent="Head"]
 transform = Transform( 1, -5.82077e-11, 0, 0, 1, 0, 0, 0, 1, -0.128, 0.434, -0.773 )
+cull_mask = 1048573
+current = true
+far = 1000.0
 
 [node name="TextureRect" type="TextureRect" parent="Head/Camera"]
 margin_left = 940.0
@@ -57,19 +62,30 @@ cast_to = Vector3( 0, 0, -100 )
 enabled = true
 cast_to = Vector3( 0, -1, -5 )
 
-[node name="HandLock" type="Spatial" parent="Head"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.257, -0.478, -1.82 )
+[node name="Magnum" parent="Head/Camera" instance=ExtResource( 3 )]
+transform = Transform( 1, 5.82077e-11, 0, 0, 1, 0, 0, 0, 1, 0.824, -0.505, -1.581 )
+layers = 2
+mesh = SubResource( 7 )
+skeleton = NodePath("")
+material/0 = null
 
-[node name="Hand" type="Spatial" parent="Head"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.257, -0.478, -1.82 )
+[node name="Blank" parent="Head/Camera" instance=ExtResource( 5 )]
+transform = Transform( 1, 5.82077e-11, 0, 0, 1, 0, 0, 0, 1, 0.336592, -0.21072, -1.581 )
+skeleton = NodePath("")
 
-[node name="Blank" parent="Head/Hand" instance=ExtResource( 5 )]
+[node name="ViewportContainer" type="ViewportContainer" parent="Head/Camera"]
+anchor_right = 1.0
+anchor_bottom = 1.0
 
-[node name="Magnum" parent="Head/Hand" instance=ExtResource( 3 )]
+[node name="Viewport" type="Viewport" parent="Head/Camera/ViewportContainer"]
+size = Vector2( 1920, 1080 )
+transparent_bg = true
+handle_input_locally = false
+render_target_update_mode = 3
 
-[node name="BR" parent="Head/Hand" instance=ExtResource( 4 )]
-transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -0.203, 0.689, 0.756 )
-visible = true
+[node name="GunCam" type="Camera" parent="Head/Camera/ViewportContainer/Viewport"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.1358, 4.41524, -0.745636 )
+cull_mask = 2
 
 [node name="GroundCheck" type="RayCast" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, 0 )

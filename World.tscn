@@ -44,6 +44,7 @@ uv1_triplanar = true
 
 [node name="Main Light" type="DirectionalLight" parent="."]
 transform = Transform( 0.688495, -0.672111, -0.272474, 0.713998, 0.562265, 0.417212, -0.12721, -0.481794, 0.867002, 0, 21.7924, 0 )
+layers = 3
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.24504, 0 )
