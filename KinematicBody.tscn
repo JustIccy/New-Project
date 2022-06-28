@@ -1,8 +1,9 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Player.gd" type="Script" id=1]
 [ext_resource path="res://Pistol Reticle.png" type="Texture" id=2]
 [ext_resource path="res://Magnum.tscn" type="PackedScene" id=3]
+[ext_resource path="res://RL_CL4PP3R.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Blank.tscn" type="PackedScene" id=5]
 
 [sub_resource type="CapsuleMesh" id=3]
@@ -47,8 +48,8 @@ current = true
 far = 1000.0
 
 [node name="TextureRect" type="TextureRect" parent="Head/Camera"]
-margin_left = 300.0
-margin_top = 220.0
+margin_left = 620.0
+margin_top = 340.0
 margin_right = 50.0
 margin_bottom = 50.0
 texture = ExtResource( 2 )
@@ -62,8 +63,15 @@ cast_to = Vector3( 0, 0, -100 )
 enabled = true
 cast_to = Vector3( 0, -1, -5 )
 
+[node name="RL_CL4PP3R" parent="Head/Camera" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.55, -0.254, -0.748 )
+
+[node name="Muzzle" type="Spatial" parent="Head/Camera/RL_CL4PP3R"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.18391 )
+
 [node name="Magnum" parent="Head/Camera" instance=ExtResource( 3 )]
 transform = Transform( 1, 5.82077e-11, 0, 0, 1, 0, 0, 0, 1, 0.824, -0.505, -1.581 )
+visible = false
 layers = 2
 mesh = SubResource( 7 )
 skeleton = NodePath("")
@@ -78,8 +86,9 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 
 [node name="Viewport" type="Viewport" parent="Head/Camera/ViewportContainer"]
-size = Vector2( 640, 480 )
+size = Vector2( 1280, 720 )
 transparent_bg = true
+handle_input_locally = false
 render_target_update_mode = 3
 
 [node name="GunCam" type="Camera" parent="Head/Camera/ViewportContainer/Viewport"]

@@ -6,12 +6,13 @@ const VSWAY =40
 
 var full_contact = false
 var weapon = [0]
+var is_proj = false
 
 var speed = 12
 const ACCEL_DEFAULT = 7
 const ACCEL_AIR = 2
 onready var accel = ACCEL_DEFAULT
-var gravity = 9.8
+var gravity = 12
 var jump = 10
 
 var cam_accel = 40
@@ -27,11 +28,13 @@ var movement = Vector3()
 onready var head = $Head
 onready var cam = $Head/Camera
 onready var ground_check = $GroundCheck
-#onready var anim_play = $Head/Camera/AnimationPlayer
+onready var RL = $Head/Camera/RL_CL4PP3R
+onready var bullet = preload("res://Bullet.tscn")
 onready var aimcast = $Head/Camera/Aimcast
 onready var MG = $Head/Camera/Magnum
 onready var blank = $Head/Camera/Blank
 onready var GunCam = $Head/Camera/ViewportContainer/Viewport/GunCam
+onready var muzzle = $Head/Camera/RL_CL4PP3R/Muzzle
 
 
 
@@ -50,9 +53,12 @@ func _input(event):
 func weapon_select():
 	
 	if Input.is_action_just_pressed("No weapons"):
-		weapon[0] = 0;
+		weapon[0] = 0 
 	elif Input.is_action_just_pressed("weapon1"):	
 		weapon[0] = 1
+	elif Input.is_action_just_pressed("weapon4"):
+		weapon[0] = 4
+	
 
 	
 	if weapon[0] == 0:
@@ -63,20 +69,29 @@ func weapon_select():
 		MG.visible = true
 	else:
 		MG.visible = false
+	if weapon[0] == 4:
+		is_proj = true
+		RL.visible = true
+	else:
+		is_proj = false
+		RL.visible = false
+		
 	
 		
 		
 func _process(delta):
 	#firing weapon
 	if Input.is_action_just_pressed("fire") && aimcast.is_colliding():
-		var target = aimcast.get_collider()
-		if target.is_in_group("Enemy"):
-			match weapon[0]:
-				0:
-					target.health -= 0
-				1: 
-						target.health -= MG.damage
-
+		if aimcast.is_colliding():
+			if is_proj == false:
+				var target = aimcast.get_collider()
+				if target.is_in_group("Enemy"):
+					match weapon:
+						0:
+							target.health -= 0
+						1: 
+							target.health -= MG.damage
+	
 	if Engine.get_frames_per_second() > Engine.iterations_per_second:
 		cam.set_as_toplevel(true)
 		cam.global_transform.origin = cam.global_transform.origin.linear_interpolate(head.global_transform.origin, cam_accel * delta)
