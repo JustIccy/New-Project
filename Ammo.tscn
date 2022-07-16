@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://2fdec0f3061186a5be264b60571466f92ed347ba.png" type="Texture" id=1]
+
+[node name="MeshInstance" type="MeshInstance"]
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+pixel_size = 0.005
+billboard = 2
+texture = ExtResource( 1 )

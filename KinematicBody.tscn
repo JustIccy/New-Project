@@ -2,9 +2,10 @@
 
 [ext_resource path="res://Player.gd" type="Script" id=1]
 [ext_resource path="res://Pistol Reticle.png" type="Texture" id=2]
-[ext_resource path="res://Magnum.tscn" type="PackedScene" id=3]
-[ext_resource path="res://RL_CL4PP3R.tscn" type="PackedScene" id=4]
-[ext_resource path="res://Blank.tscn" type="PackedScene" id=5]
+[ext_resource path="res://weapons/Durendahl.tscn" type="PackedScene" id=3]
+[ext_resource path="res://weapon_manager.gd" type="Script" id=4]
+[ext_resource path="res://weapons/Blank.tscn" type="PackedScene" id=5]
+[ext_resource path="res://HUD.tscn" type="PackedScene" id=6]
 
 [sub_resource type="CapsuleMesh" id=3]
 mid_height = 3.0
@@ -17,9 +18,6 @@ height = 3.0
 
 [sub_resource type="CylinderShape" id=2]
 height = 0.841407
-
-[sub_resource type="CubeMesh" id=7]
-size = Vector3( 0.354, 0.397, 1.408 )
 
 [node name="Player" type="KinematicBody"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0 )
@@ -45,6 +43,7 @@ transform = Transform( 1, 5.82077e-11, 0, 0, 1, 0, 0, 0, 1, 0, 0.976135, 0 )
 transform = Transform( 1, -5.82077e-11, 0, 0, 1, 0, 0, 0, 1, -0.128, 0.434, -0.773 )
 cull_mask = 1048573
 current = true
+fov = 90.0
 far = 1000.0
 
 [node name="TextureRect" type="TextureRect" parent="Head/Camera"]
@@ -63,23 +62,16 @@ cast_to = Vector3( 0, 0, -100 )
 enabled = true
 cast_to = Vector3( 0, -1, -5 )
 
-[node name="RL_CL4PP3R" parent="Head/Camera" instance=ExtResource( 4 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.55, -0.254, -0.748 )
+[node name="weapons" type="Spatial" parent="Head/Camera"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.172068, -0.162747, 0 )
+script = ExtResource( 4 )
 
-[node name="Muzzle" type="Spatial" parent="Head/Camera/RL_CL4PP3R"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.18391 )
+[node name="Durendahl" parent="Head/Camera/weapons" groups=["Hitscan"] instance=ExtResource( 3 )]
+weapon_name = "Durendahl"
 
-[node name="Magnum" parent="Head/Camera" instance=ExtResource( 3 )]
-transform = Transform( 1, 5.82077e-11, 0, 0, 1, 0, 0, 0, 1, 0.824, -0.505, -1.581 )
+[node name="Blank" parent="Head/Camera/weapons" instance=ExtResource( 5 )]
 visible = false
-layers = 2
-mesh = SubResource( 7 )
-skeleton = NodePath("")
-material/0 = null
-
-[node name="Blank" parent="Head/Camera" instance=ExtResource( 5 )]
-transform = Transform( 1, 5.82077e-11, 0, 0, 1, 0, 0, 0, 1, 0.336592, -0.21072, -1.581 )
-skeleton = NodePath("")
+weapon_name = "Blank"
 
 [node name="ViewportContainer" type="ViewportContainer" parent="Head/Camera"]
 anchor_right = 1.0
@@ -94,8 +86,11 @@ render_target_update_mode = 3
 [node name="GunCam" type="Camera" parent="Head/Camera/ViewportContainer/Viewport"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.1358, 4.41524, -0.745636 )
 cull_mask = 2
+fov = 80.0
 
 [node name="GroundCheck" type="RayCast" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, 0 )
 enabled = true
 cast_to = Vector3( 0, -1.5, 0 )
+
+[node name="HUD" parent="." instance=ExtResource( 6 )]
