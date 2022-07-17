@@ -2,10 +2,10 @@
 
 [ext_resource path="res://Player.gd" type="Script" id=1]
 [ext_resource path="res://Pistol Reticle.png" type="Texture" id=2]
-[ext_resource path="res://weapons/Durendahl.tscn" type="PackedScene" id=3]
-[ext_resource path="res://weapon_manager.gd" type="Script" id=4]
-[ext_resource path="res://weapons/Blank.tscn" type="PackedScene" id=5]
+[ext_resource path="res://weapon/Armed/Durendahl.tscn" type="PackedScene" id=3]
+[ext_resource path="res://weapon/Unarmed/Blank.tscn" type="PackedScene" id=5]
 [ext_resource path="res://HUD.tscn" type="PackedScene" id=6]
+[ext_resource path="res://weapon/weapon_manager.gd" type="Script" id=8]
 
 [sub_resource type="CapsuleMesh" id=3]
 mid_height = 3.0
@@ -64,14 +64,12 @@ cast_to = Vector3( 0, -1, -5 )
 
 [node name="weapons" type="Spatial" parent="Head/Camera"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.172068, -0.162747, 0 )
-script = ExtResource( 4 )
+script = ExtResource( 8 )
 
-[node name="Durendahl" parent="Head/Camera/weapons" groups=["Hitscan"] instance=ExtResource( 3 )]
-weapon_name = "Durendahl"
+[node name="Durendahl" parent="Head/Camera/weapons" instance=ExtResource( 3 )]
 
 [node name="Blank" parent="Head/Camera/weapons" instance=ExtResource( 5 )]
 visible = false
-weapon_name = "Blank"
 
 [node name="ViewportContainer" type="ViewportContainer" parent="Head/Camera"]
 anchor_right = 1.0

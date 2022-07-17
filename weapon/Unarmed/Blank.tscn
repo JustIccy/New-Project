@@ -1,0 +1,31 @@
+[gd_scene load_steps=2 format=2]
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends Weapon
+
+
+func equip():
+	update_ammo()
+
+func unequip():
+	pass
+
+func is_equip_finished():
+	return true
+
+func is_unequip_finished():
+	return true
+
+
+
+func update_ammo(action = \"Refresh\"):
+	
+	var weapon_data = {
+		\"Name\" : weapon_name
+	}
+	
+	weapon_manager.update_hud(weapon_data)
+"
+
+[node name="Blank" type="Spatial"]
+script = SubResource( 1 )

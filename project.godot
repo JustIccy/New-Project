@@ -9,12 +9,18 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Weapon",
+"class": "Armed",
+"language": "GDScript",
+"path": "res://weapon/Armed/armed.gd"
+}, {
 "base": "Spatial",
 "class": "Weapon",
 "language": "GDScript",
-"path": "res://weapon.gd"
+"path": "res://weapon/weapon.gd"
 } ]
 _global_script_class_icons={
+"Armed": "",
 "Weapon": ""
 }
 
@@ -30,8 +36,6 @@ window/size/width=1280
 window/size/height=720
 window/size/resizable=false
 window/size/borderless=true
-window/size/fullscreen=true
-window/vsync/use_vsync=false
 window/stretch/mode="viewport"
 window/stretch/aspect="keep"
 

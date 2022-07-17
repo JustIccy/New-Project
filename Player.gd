@@ -28,7 +28,7 @@ onready var head = $Head
 onready var rect = $Head/Camera/TextureRect
 onready var cam = $Head/Camera
 onready var ground_check = $GroundCheck
-onready var aimcast = $Head/Camera/Aimcast
+
 onready var GunCam = $Head/Camera/ViewportContainer/Viewport/GunCam
 onready var weapon_manager = $Head/Camera/weapons
 
@@ -48,12 +48,6 @@ func _input(event):
 		head.rotation.x = clamp(head.rotation.x, deg2rad(-89), deg2rad(89))
 	
 func _process(delta):
-	#firing weapon
-	if Input.is_action_just_pressed("fire") && aimcast.is_colliding():
-			var target = aimcast.get_collider()
-			if target.is_in_group("Enemy"):
-				print("hit_target")
-				
 	
 	if Engine.get_frames_per_second() > Engine.iterations_per_second:
 		cam.set_as_toplevel(true)
