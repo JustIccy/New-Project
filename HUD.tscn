@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://roboto/Roboto-BoldCondensed.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://HUD.gd" type="Script" id=2]
+[ext_resource path="res://Pribina-d_icon1.jpg" type="Texture" id=3]
 
 [sub_resource type="DynamicFont" id=1]
 size = 18
@@ -60,3 +61,10 @@ margin_right = 40.03
 margin_bottom = 24.022
 custom_fonts/font = SubResource( 2 )
 text = "1"
+
+[node name="TextureRect" type="TextureRect" parent="Background/Display"]
+margin_right = 126.0
+margin_bottom = 122.0
+texture = ExtResource( 3 )
+expand = true
+stretch_mode = 1
